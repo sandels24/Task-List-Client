@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-task',
@@ -7,21 +7,15 @@ import {Component, Input, OnInit, Output} from '@angular/core';
 })
 export class TaskComponent implements OnInit {
 
-  @Input() public click: boolean;
+  // @Input()  public clicke: boolean;
   @Input() task: any;
-  constructor() { }
+  @Input() click;
+  @Output() closeDesc: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   ngOnInit() {
   }
 
-  clicked(task: any): void {
-    console.log(this.click);
-    if (this.click) {
-      this.task = task;
-    }
-    console.log('task clicked ' + task.id);
-  }
   hideDesc() {
-    console.log(this.click);
+    this.closeDesc.emit(false);
   }
 }

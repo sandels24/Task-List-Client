@@ -2,8 +2,8 @@
   <h1>
     {{title}}
   </h1>
-
 </div>
+
   <div class="listDiv">
     <ul class="taskList">
       <li class="taskList" *ngFor="let task of tasks" (click)="taskClicked(task)">
@@ -14,13 +14,13 @@
     </ul>
 
 <div class="addDiv">
-  <ul >
-    <li><input type="text" id="input" placeholder="name" value="" #name /></li>
-    <li><input type="text" id="desc" placeholder="description" value="" #description /></li>
-    <li><button class="" (click)="addTask(name.value, description.value)">Add Task</button></li>
+  <ul>
+    <li><input type="text" id="input" placeholder="name" required ="true" value="" #name /></li>
+    <li><input type="text" id="desc" placeholder="description" required = "true" value="" #description /></li>
+    <li>
+      <button class="" (click)="addTask(name.value, description.value)">Add Task</button>
+    </li>
   </ul>
   <br/>
-  <app-task [(click)]="clicked" [task]="clickedTask" ></app-task>
-</div>
-  </div>
-
+  <app-task [click] ="clicked" [task]="clickedTask" (closeDesc)="closeDesc($event)"></app-task>
+</div></div>

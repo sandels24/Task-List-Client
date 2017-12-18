@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {TaskServiceService} from './task-service.service';
 import {Task} from '../Task';
+import preventExtensions = Reflect.preventExtensions;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,7 +13,9 @@ export class AppComponent {
   clicked: boolean;
   clickedTask: any;
   tasks: Task[];
-  constructor(public taskService: TaskServiceService) {this.getTasks();
+
+  constructor(public taskService: TaskServiceService) {
+    this.getTasks();
   }
 
   getTasks(): void {
@@ -21,9 +25,9 @@ export class AppComponent {
   }
 
   // Adding a task into the task array
-  addTask(input: string , desc: string): void {
+  addTask(input: string, desc: string): void {
     const task: Task = {
-      'id' : 1 + this.tasks[this.tasks.length - 1].id,
+      'id': 1 + this.tasks[this.tasks.length - 1].id,
       'name': input,
       'description': desc
     };
@@ -39,7 +43,7 @@ export class AppComponent {
       'name': name,
       'description': desc
     };
-    this.taskService.updateTask(newTask).subscribe( data => {
+    this.taskService.updateTask(newTask).subscribe(data => {
       this.tasks = data;
     });
   }
@@ -53,7 +57,11 @@ export class AppComponent {
 
   // Clicking the Task
   taskClicked(task: any): void {
-    this.clickedTask = task;
     this.clicked = true;
+    this.clickedTask = task;
+  }
+
+  closeDesc(event) {
+    this.clicked = event;
   }
 }
