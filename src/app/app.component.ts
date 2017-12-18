@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TaskServiceService} from './task-service.service';
 import {Task} from '../Task';
 import preventExtensions = Reflect.preventExtensions;
@@ -8,13 +8,16 @@ import preventExtensions = Reflect.preventExtensions;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Task List Application';
   clicked: boolean;
-  clickedTask: any;
+  clickedTask: Task;
   tasks: Task[];
+  emptyTaskName: string;
 
-  constructor(public taskService: TaskServiceService) {
+  constructor(public taskService: TaskServiceService) {}
+
+  ngOnInit() {
     this.getTasks();
   }
 
@@ -26,14 +29,19 @@ export class AppComponent {
 
   // Adding a task into the task array
   addTask(input: string, desc: string): void {
-    const task: Task = {
-      'id': 1 + this.tasks[this.tasks.length - 1].id,
-      'name': input,
-      'description': desc
-    };
-    this.taskService.addTask(task).subscribe(data => {
-      this.tasks = data;
-    });
+    if (input !== '') {
+      this.emptyTaskName = '';
+      const task: Task = {
+        'id': 1 + this.tasks[this.tasks.length - 1].id,
+        'name': input,
+        'description': desc
+      };
+      this.taskService.addTask(task).subscribe(data => {
+        this.tasks = data;
+      });
+    } else {
+      this.emptyTaskName = 'please enter a task';
+    }
   }
 
   // Deleting a task from the tasks array

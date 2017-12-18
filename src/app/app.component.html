@@ -15,7 +15,7 @@
 
 <div class="addDiv">
   <ul>
-    <li><input type="text" id="input" placeholder="name" required ="true" value="" #name /></li>
+    <li><input type="text" id="input" placeholder="name" required ="true" value="" #name /></li><li>{{emptyTaskName}}</li>
     <li><input type="text" id="desc" placeholder="description" required = "true" value="" #description /></li>
     <li>
       <button class="" (click)="addTask(name.value, description.value)">Add Task</button>
